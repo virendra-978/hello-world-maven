@@ -1,12 +1,4 @@
-FROM maven:3.6.3-jdk-8 AS build
-
-WORKDIR /app
-COPY . .
-RUN mvn clean package
-FROM openjdk:8-jre
-
-WORKDIR /app
-COPY --from=build /app/target/hello-world-1.0-SNAPSHOT.jar /app/hello-world.jar
-
-# Run the application
-ENTRYPOINT ["java", "-jar", "/app/hello-world.jar"]
+FROM maven:3.8.4-openjdk-11 AS build
+COPY target/helloprint-maven-0.0.1-SNAPSHOT-jar-with-dependencies.jar /usr/src/helloprint/
+WORKDIR /usr/src/helloprint
+CMD ["java","-jar","helloprint-0.1-SNAPSHOT-jar-with-dependencies.jar"]
